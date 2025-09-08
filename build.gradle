@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.1'
@@ -12,13 +13,14 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://alphacephei.com/maven/' }
-    }
-}
+// این بخش رو کاملاً پاک کنید
+// allprojects {
+//     repositories {
+//         google()
+//         mavenCentral()
+//         maven { url 'https://alphacephei.com/maven/' }
+//     }
+// }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
