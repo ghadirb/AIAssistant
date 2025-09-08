@@ -14,64 +14,20 @@ workflows:
           sudo apt-get install -y openjdk-17-jdk
           export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
           export PATH=$JAVA_HOME/bin:$PATH
-          java -version
           
       - name: Set up Android environment
         script: |
-          echo "Setting up Android environment..."
           export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-          export ANDROID_HOME=$ANDROID_SDK_ROOT
           export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
           export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
-          export PATH=$ANDROID_SDK_ROOT/build-tools/34.0.0:$PATH
-          
-          # ایجاد فایل‌های لازم
-          mkdir -p $HOME/.android
-          touch $HOME/.android/repositories.cfg
-          
-          # پذیرش licenses
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          echo "Android environment ready!"
           
-      - name: Check project structure
+      - name: Build app
         script: |
-          echo "Current directory: $(pwd)"
-          echo "Project contents:"
-          ls -la
-          echo "Gradle wrapper:"
-          ls -la gradlew* || echo "No gradlew files found"
-          echo "Gradle directory:"
-          ls -la gradle/ || echo "No gradle directory found"
+          ./gradlew clean assembleDebug
           
-      - name: Build debug app
-        script: |
-          if [ -f "gradlew" ]; then
-            echo "Using ./gradlew"
-            chmod +x gradlew
-            ./gradlew clean assembleDebug
-          elif [ -f "gradlew.bat" ]; then
-            echo "Using gradlew.bat"
-            ./gradlew.bat clean assembleDebug
-          else
-            echo "Using gradle directly"
-            gradle clean assembleDebug
-          fi
-          
-      - name: Build release app
-        script: |
-          if [ -f "gradlew" ]; then
-            chmod +x gradlew
-            ./gradlew clean assembleRelease
-          elif [ -f "gradlew.bat" ]; then
-            ./gradlew.bat clean assembleRelease
-          else
-            gradle clean assembleRelease
-          fi
-            
     artifacts:
       - app/build/outputs/**/*.apk
-      - app/build/outputs/**/*.aab
-      - app/build/reports/**/*.xml
       
     publishing:
       email:
@@ -80,6 +36,3 @@ workflows:
         notify:
           success: true
           failure: true
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: internal
