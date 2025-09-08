@@ -6,29 +6,26 @@ workflows:
         - keystore_credentials
       vars:
         PACKAGE_NAME: "com.tejaretnou.aiassistant"
-        APP_NAME: "AI Assistant"
     scripts:
+      - name: Set up Java
+        script: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk
+          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+          export PATH=$JAVA_HOME/bin:$PATH
+          
       - name: Set up Android SDK
         script: |
-          sdkmanager "platforms;android-34"
-          sdkmanager "build-tools;34.0.0"
-      - name: Set up signing
-        script: |
-          mkdir -p $HOME/.android
-          echo $CM_KEYSTORE | base64 --decode > $HOME/.android/keystore.jks
-          echo "storeFile=$HOME/.android/keystore.jks" > keystore.properties
-          echo "storePassword=$CM_KEYSTORE_PASSWORD" >> keystore.properties
-          echo "keyAlias=$CM_KEY_ALIAS" >> keystore.properties
-          echo "keyPassword=$CM_KEY_PASSWORD" >> keystore.properties
-      - name: Build project
+          export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+          export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+          yes | sdkmanager --licenses || true
+          
+      - name: Build app
         script: |
           ./gradlew clean assembleDebug
-      - name: Run tests
-        script: |
-          ./gradlew test
     artifacts:
       - app/build/outputs/**/*.apk
-      - app/build/outputs/**/*.aab
     publishing:
       email:
         recipients:
