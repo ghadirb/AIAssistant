@@ -22,8 +22,12 @@ workflows:
           export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
           
-      - name: Build app
+      - name: Fix permissions and build
         script: |
+          # دادن مجوز اجرا به gradlew
+          chmod +x ./gradlew || true
+          
+          # ساخت برنامه
           ./gradlew clean assembleDebug
           
     artifacts:
