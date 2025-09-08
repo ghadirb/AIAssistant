@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">AI Assistant</string>
+    <string name="company_name">Tejarete Nou</string>
+    
+    <!-- Main Activity -->
+    <string name="online_mode">Online Mode</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Voice Recording -->
+    <string name="tap_to_record">Tap to record</string>
+    <string name="recording">Recording...</string>
+    <string name="release_to_send">Release to send</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    
+    <!-- Backup -->
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="auto_backup">Auto Backup</string>
+    
+    <!-- Errors -->
+    <string name="error_occurred">Error occurred</string>
+    <string name="check_connection">Please check your connection</string>
+</resources>
