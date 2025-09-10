@@ -4,60 +4,57 @@ plugins {
 }
 
 android {
-    namespace 'com.tejaretnou.aiassistant'
-    compileSdk 33
+    namespace "com.tejaretnou.aiassistant"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.tejaretnou.aiassistant"
-        minSdk 24
-        targetSdk 29  // تغییر به 29 برای Android 10
+        minSdk 21
+        targetSdk 34
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        debug {
-            debuggable true
-            minifyEnabled false
-        }
+    signingConfigs {
         release {
+            storeFile file("keystore/my-release-key.jks")
+            storePassword "12345678"
+            keyAlias "my-key-alias"
+            keyPassword "12345678"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    buildFeatures {
-        viewBinding true
-    }
-
-    packagingOptions {
-        exclude 'META-INF/**'
-        exclude '**/module-info.class'
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    // فقط dependencies اصلی
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
-    // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    
-    // Testing
+
+    // Vosk STT
+    implementation 'com.alphacephei:vosk-android:0.3.70'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
