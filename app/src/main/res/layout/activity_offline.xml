@@ -9,25 +9,13 @@
         android:id="@+id/txt_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="مدل آماده نیست"
+        android:text="برای شروع، دکمه را نگه دارید"
         android:padding="8dp" />
 
     <Button
-        android:id="@+id/btn_download_model"
-        android:layout_width="match_parent"
+        android:id="@+id/btn_record"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="دانلود مدل آفلاین" />
-
-    <Button
-        android:id="@+id/btn_start_stt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="شروع ضبط" />
-
-    <Button
-        android:id="@+id/btn_stop_stt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="توقف ضبط" />
-
+        android:text="🎤 نگه دار برای ضبط"
+        android:background="@android:color/holo_blue_light" />
 </LinearLayout>
