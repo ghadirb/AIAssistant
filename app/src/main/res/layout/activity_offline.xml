@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مدل آماده نیست"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btn_download_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="دانلود مدل آفلاین" />
+
+    <Button
+        android:id="@+id/btn_start_stt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="شروع ضبط" />
+
+    <Button
+        android:id="@+id/btn_stop_stt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="توقف ضبط" />
+
+</LinearLayout>
