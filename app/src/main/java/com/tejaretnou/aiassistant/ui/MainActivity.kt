@@ -1,30 +1,21 @@
 package com.tejaretnou.aiassistant.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.tejaretnou.aiassistant.R
+import com.tejaretnou.aiassistant.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    
-    private val TAG = "MainActivity"
-    
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate called")
-        setContentView(R.layout.activity_main)
+        
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         
         // تست ساده
-        Log.d(TAG, "Layout set successfully")
-    }
-    
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart called")
-    }
-    
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume called")
+        binding.textView.text = "برنامه با موفقیت اجرا شد! 🎉"
     }
 }
