@@ -37,10 +37,15 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+        exclude '**/module-info.class'
+    }
 }
 
 dependencies {
-    // Core Android - همه compatible
+    // Core Android
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -58,8 +63,10 @@ dependencies {
     // Google Drive & Auth
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     
-    // Voice Processing
-    implementation 'com.alphacephei:vosk-android:0.3.47'
+    // Voice Processing - با exclusion برای حل duplicate
+    implementation ('com.alphacephei:vosk-android:0.3.47') {
+        exclude group: 'net.java.dev.jna', module: 'jna'
+    }
     implementation 'net.java.dev.jna:jna:5.13.0'
     
     // Room Database
