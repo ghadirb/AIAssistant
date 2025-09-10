@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
@@ -10,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.tejaretnou.aiassistant"
-        minSdk 24
+        minSdk 21  // Android 5.0 - برای سازگاری بیشتر
         targetSdk 33
         versionCode 1
         versionName "1.0.0"
@@ -26,26 +25,21 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
         viewBinding true
     }
-
-    packagingOptions {
-        exclude 'META-INF/*'
-        exclude '**/module-info.class'
-    }
 }
 
 dependencies {
-    // Core Android
+    // Core
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -53,29 +47,20 @@ dependencies {
     
     // Lifecycle
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     
     // Networking
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     
-    // Google Drive & Auth
+    // Google Auth
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     
-    // Voice Processing - با exclusion برای حل duplicate
-    implementation ('com.alphacephei:vosk-android:0.3.47') {
-        exclude group: 'net.java.dev.jna', module: 'jna'
-    }
-    implementation 'net.java.dev.jna:jna:5.13.0'
+    // Room Database (موقتاً غیرفعال)
+    // implementation 'androidx.room:room-runtime:2.5.1'
+    // kapt 'androidx.room:room-compiler:2.5.1'
     
-    // Room Database
-    implementation 'androidx.room:room-runtime:2.5.1'
-    implementation 'androidx.room:room-ktx:2.5.1'
-    kapt 'androidx.room:room-compiler:2.5.1'
-    
-    // WorkManager
-    implementation 'androidx.work:work-runtime-ktx:2.8.1'
+    // WorkManager (موقتاً غیرفعال)
+    // implementation 'androidx.work:work-runtime-ktx:2.8.1'
     
     // Testing
     testImplementation 'junit:junit:4.13.2'
