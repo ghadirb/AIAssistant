@@ -2,52 +2,51 @@ package com.tejaretnou.aiassistant.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.AudioRecord
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.alphacephei.vosk.Recognizer
+import com.alphacephei.vosk.Model
+import com.alphacephei.vosk.android.SpeechService
 import com.tejaretnou.aiassistant.R
+import java.io.IOException
 
 class OfflineActivity : AppCompatActivity() {
 
     private lateinit var statusText: TextView
+    private lateinit var recordButton: Button
+
+    private var model: Model? = null
+    private var recognizer: Recognizer? = null
+    private var speechService: SpeechService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
 
         statusText = findViewById(R.id.txt_status)
+        recordButton = findViewById(R.id.btn_record)
 
-        val btnDownload = findViewById<Button>(R.id.btn_download_model)
-        val btnStart = findViewById<Button>(R.id.btn_start_stt)
-        val btnStop = findViewById<Button>(R.id.btn_stop_stt)
-
-        btnDownload.setOnClickListener {
-            Toast.makeText(this, "دانلود مدل (نمایشی)", Toast.LENGTH_SHORT).show()
-            statusText.text = "مدل آماده است"
+        // درخواست مجوز میکروفون
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
         }
 
-        btnStart.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 101)
-            } else {
-                Toast.makeText(this, "شروع ضبط صوت (نمایشی)", Toast.LENGTH_SHORT).show()
-                statusText.text = "در حال گوش دادن..."
-                Log.d("OfflineActivity", "STT started")
-                // TODO: ادغام با VoskRecognizer
-            }
+        try {
+            // ⚠️ توجه: باید مدل vosk را در assets قرار دهی (مثلاً assets/models/vosk-model-small-en-us-0.15)
+            model = Model("model") // مسیر پوشه مدل داخل assets یا storage
+            recognizer = Recognizer(model, 16000.0f)
+        } catch (e: IOException) {
+            Log.e("OfflineActivity", "خطا در بارگذاری مدل: ${e.message}")
+            Toast.makeText(this, "مدل آفلاین پیدا نشد", Toast.LENGTH_LONG).show()
         }
 
-        btnStop.setOnClickListener {
-            Toast.makeText(this, "توقف ضبط", Toast.LENGTH_SHORT).show()
-            statusText.text = "متوقف شد"
-            Log.d("OfflineActivity", "STT stopped")
-        }
-    }
-}
+        // ضبط شبیه تلگرام
