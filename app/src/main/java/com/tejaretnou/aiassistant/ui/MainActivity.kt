@@ -3,34 +3,28 @@ package com.tejaretnou.aiassistant.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.tejaretnou.aiassistant.databinding.ActivityMainBinding
+import com.tejaretnou.aiassistant.R
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setupClickListeners()
-    }
-
-    private fun setupClickListeners() {
-        binding.btnOnline.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java).apply {
-                putExtra("mode", "online")
-            })
+        setContentView(R.layout.activity_main)
+        
+        // دکمه‌های ساده برای تست - بعداً کامل می‌کنیم
+        findViewById<android.widget.Button>(R.id.btn_online).setOnClickListener {
+            // بعداً پیاده‌سازی می‌شه
+            println("Online mode clicked")
         }
-
-        binding.btnOffline.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java).apply {
-                putExtra("mode", "offline")
-            })
+        
+        findViewById<android.widget.Button>(R.id.btn_offline).setOnClickListener {
+            // بعداً پیاده‌سازی می‌شه
+            println("Offline mode clicked")
         }
-
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+        
+        findViewById<android.widget.Button>(R.id.btn_settings).setOnClickListener {
+            // بعداً پیاده‌سازی می‌شه
+            println("Settings clicked")
         }
     }
 }
