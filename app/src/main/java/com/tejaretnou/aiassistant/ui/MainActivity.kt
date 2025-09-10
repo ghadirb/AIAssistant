@@ -1,7 +1,7 @@
 package com.tejaretnou.aiassistant.ui
 
-import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tejaretnou.aiassistant.R
 
@@ -11,20 +11,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         
-        // دکمه‌های ساده برای تست - بعداً کامل می‌کنیم
-        findViewById<android.widget.Button>(R.id.btn_online).setOnClickListener {
-            // بعداً پیاده‌سازی می‌شه
-            println("Online mode clicked")
-        }
-        
-        findViewById<android.widget.Button>(R.id.btn_offline).setOnClickListener {
-            // بعداً پیاده‌سازی می‌شه
-            println("Offline mode clicked")
-        }
-        
-        findViewById<android.widget.Button>(R.id.btn_settings).setOnClickListener {
-            // بعداً پیاده‌سازی می‌شه
-            println("Settings clicked")
-        }
+        // نمایش پیغام برای تست
+        Toast.makeText(this, "برنامه با موفقیت اجرا شد!", Toast.LENGTH_LONG).show()
+        println("✅ برنامه اجرا شد!")
+    }
+    
+    override fun onStart() {
+        super.onStart()
+        println("✅ Activity started")
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        println("✅ Activity resumed")
     }
 }
