@@ -6,30 +6,13 @@ workflows:
         - keystore_credentials
       vars:
         PACKAGE_NAME: "com.tejaretnou.aiassistant"
-        APP_NAME: "AI Assistant"
     scripts:
-      - name: Set up Java
+      - name: Build App
         script: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk
-          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-          export PATH=$JAVA_HOME/bin:$PATH
-          
-      - name: Set up Android environment
-        script: |
-          export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-          export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          
-      - name: Build app
-        script: |
-          chmod +x ./gradlew || true
+          chmod +x ./gradlew
           ./gradlew clean assembleDebug
-          
     artifacts:
       - app/build/outputs/**/*.apk
-      
     publishing:
       email:
         recipients:
