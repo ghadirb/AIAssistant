@@ -49,4 +49,37 @@ class OfflineActivity : AppCompatActivity() {
             Toast.makeText(this, "مدل آفلاین پیدا نشد", Toast.LENGTH_LONG).show()
         }
 
-        // ضبط شبیه تلگرام
+        // ضبط شبیه تلگرام (نگه‌دار → ضبط، رها کن → توقف)
+        recordButton.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    startListening()
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    stopListening()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun startListening() {
+        if (recognizer != null) {
+            speechService = SpeechService(recognizer, 16000.0f)
+            speechService?.startListening { result ->
+                runOnUiThread {
+                    statusText.text = result
+                }
+            }
+            statusText.text = "🎤 در حال گوش دادن..."
+        }
+    }
+
+    private fun stopListening() {
+        speechService?.stop()
+        speechService = null
+        statusText.text = "⏹ ضبط متوقف شد"
+    }
+}
