@@ -35,4 +35,45 @@ class OnlineActivity : AppCompatActivity() {
             val prompt = edtPrompt.text.toString()
             val model = spinnerModels.selectedItem.toString()
 
-            if (apiKey.isE
+            if (apiKey.isEmpty() || prompt.isEmpty()) {
+                Toast.makeText(this, "کلید و متن لازم است", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            txtResponse.text = "در حال ارسال..."
+
+            sendRequest(apiKey, model, prompt)
+        }
+    }
+
+    private fun sendRequest(apiKey: String, model: String, prompt: String) {
+        val client = OkHttpClient()
+
+        val json = JSONObject()
+        json.put("model", model)
+        json.put("messages", listOf(mapOf("role" to "user", "content" to prompt)))
+
+        val body = RequestBody.create(MediaType.parse("application/json"), json.toString())
+
+        val request = Request.Builder()
+            .url("https://api.openai.com/v1/chat/completions")
+            .addHeader("Authorization", "Bearer $apiKey")
+            .post(body)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    txtResponse.text = "خطا: ${e.message}"
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val res = response.body()?.string()
+                runOnUiThread {
+                    txtResponse.text = res ?: "پاسخی دریافت نشد"
+                }
+            }
+        })
+    }
+}
