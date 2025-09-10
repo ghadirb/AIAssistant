@@ -1,28 +1,17 @@
-package com.tejaretnou.aiassistant.ui
+package com.ghadir.a_i_assistant
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.tejaretnou.aiassistant.R
+import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : AppCompatActivity() {
-    
+class MainActivity: FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         
-        // نمایش پیغام برای تست
-        Toast.makeText(this, "برنامه با موفقیت اجرا شد!", Toast.LENGTH_LONG).show()
-        println("✅ برنامه اجرا شد!")
-    }
-    
-    override fun onStart() {
-        super.onStart()
-        println("✅ Activity started")
-    }
-    
-    override fun onResume() {
-        super.onResume()
-        println("✅ Activity resumed")
+        // حذف کدهای مشکل‌زا و استفاده از روش ایمن
+        try {
+            // اینجا می‌توانید در آینده کدهای خاص اندروید را اضافه کنید
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
