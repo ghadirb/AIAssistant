@@ -1,28 +1,30 @@
 package com.tejaretnou.aiassistant.ui
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.tejaretnou.aiassistant.R
 
 class MainActivity : AppCompatActivity() {
     
+    private val TAG = "MainActivity"
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate called")
         setContentView(R.layout.activity_main)
         
-        // نمایش پیغام برای تست
-        Toast.makeText(this, "برنامه با موفقیت اجرا شد!", Toast.LENGTH_LONG).show()
-        println("✅ برنامه اجرا شد!")
+        // تست ساده
+        Log.d(TAG, "Layout set successfully")
     }
     
     override fun onStart() {
         super.onStart()
-        println("✅ Activity started")
+        Log.d(TAG, "onStart called")
     }
     
     override fun onResume() {
         super.onResume()
-        println("✅ Activity resumed")
+        Log.d(TAG, "onResume called")
     }
 }
