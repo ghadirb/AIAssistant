@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edt_api_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="کلید API" />
+
+    <EditText
+        android:id="@+id/edt_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="سؤال یا پیام" />
+
+    <Button
+        android:id="@+id/btn_send_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ارسال" />
+
+    <TextView
+        android:id="@+id/txt_response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="پاسخ نمایش داده می‌شود" />
+
+</LinearLayout>
